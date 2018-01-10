@@ -48,10 +48,14 @@ parser.add_argument('--threshold', dest='threshold', nargs='?', required=True,
 
 args = parser.parse_args()
 print(args.result_path)
-threshold = int(args.threshold)
+threshold = float(args.threshold)
 
 result = np.load(args.result_path)
 expected = np.load(args.expected_path)
+
+if (result.shape != expected.shape):
+    print("Error: Shape of Matrices must match")
+    quit(-1)
 
 dimensions = len(expected.shape)
 dimension_labels = list(string.ascii_uppercase[-dimensions:])
